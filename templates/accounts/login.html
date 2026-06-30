@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Log in{% endblock %}
+{% block content %}
+  <h1>Log in</h1>
+  {# csrf_token is mandatory on every POST form: it proves the request came
+     from our own page and not a forged cross-site request. #}
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log in</button>
+  </form>
+  <p><a href="{% url 'signup' %}">Need an account? Sign up</a></p>
+{% endblock %}

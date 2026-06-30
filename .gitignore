@@ -1,0 +1,18 @@
+# Secrets — NEVER commit the real environment file.
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+/media/
+
+# OS / editor
+.DS_Store
+*.swp

@@ -1,0 +1,50 @@
+{% comment %}
+Base layout. Intentionally plain, unstyled HTML — the brief prioritizes
+security and correctness over styling.
+
+Two security notes about this template:
+  * Auto-escaping is ON (Django default, never disabled). Any variable we
+    render is HTML-escaped, neutralizing injected markup/script.
+  * The Dashboard nav link is shown only to authenticated users. This is purely
+    a UX nicety — the actual access control is the @login_required decorator on
+    the view, NOT this conditional.
+{% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Hardened Site{% endblock %}</title>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+      {% if user.is_authenticated %}
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+      {% endif %}
+    </ul>
+    <ul>
+      {% if user.is_authenticated %}
+        <li>Signed in as {{ user.username }}</li>
+        {# Logout is a POST so it can't be triggered cross-site via a GET. #}
+        <li>
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Log out</button>
+          </form>
+        </li>
+      {% else %}
+        <li><a href="{% url 'login' %}">Log in</a></li>
+        <li><a href="{% url 'signup' %}">Sign up</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+  <hr>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

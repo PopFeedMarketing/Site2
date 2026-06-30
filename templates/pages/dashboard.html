@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+  <h1>Dashboard</h1>
+  <p>Hello, {{ user.username }}. This page is reachable only by authenticated
+     users — enforced server-side by @login_required.</p>
+{% endblock %}

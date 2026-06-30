@@ -1,0 +1,4 @@
+# Development / CI-only tools. Not installed in production.
+-r requirements.txt
+
+pip-audit==2.10.1   # scans pinned deps against known-vulnerability databases
