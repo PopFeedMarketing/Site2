@@ -53,10 +53,12 @@ pip-audit -r requirements.txt        # -> dependency vulnerability scan
 
 ## Deploying to Vercel
 
-This repo includes `vercel.json` and `build_files.sh`. Two builds run: the
-`@vercel/python` builder serves `config/wsgi.py` as a serverless function, and a
-`@vercel/static-build` step runs `collectstatic` so the Django admin's assets
-are served from the CDN at `/static/`.
+This repo includes `vercel.json`. A single `@vercel/python` build serves
+`config/wsgi.py` as a serverless function (templates are bundled via
+`includeFiles`). The public pages use no static assets, so nothing else is
+needed. The Django admin's CSS/JS are not collected in this minimal setup, so
+`/admin/` renders unstyled but fully functional — see the static-files note in
+`config/settings.py` if you want to wire those up.
 
 ### 1. Set Environment Variables (Vercel → Settings → Environment Variables)
 

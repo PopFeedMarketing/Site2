@@ -4,20 +4,10 @@
     {
       "src": "config/wsgi.py",
       "use": "@vercel/python",
-      "config": {
-        "runtime": "python3.12",
-        "maxLambdaSize": "15mb",
-        "includeFiles": "templates/**"
-      }
-    },
-    {
-      "src": "build_files.sh",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "staticfiles_build" }
+      "config": { "includeFiles": "templates/**" }
     }
   ],
   "routes": [
-    { "src": "/static/(.*)", "dest": "/static/$1" },
     { "src": "/(.*)", "dest": "config/wsgi.py" }
   ]
 }
