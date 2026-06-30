@@ -1,0 +1,9 @@
+# Never upload these to Vercel (mirrors .gitignore for CLI deploys).
+.venv/
+.env
+db.sqlite3
+db.sqlite3-journal
+staticfiles_build/
+__pycache__/
+*.pyc
+.git/

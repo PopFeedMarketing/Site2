@@ -189,7 +189,14 @@ USE_TZ = True
 # Static files
 # ---------------------------------------------------------------------------
 STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# STATIC_ROOT points at staticfiles_build/static so the Vercel build can serve
+# collected assets from the CDN. See vercel.json + build_files.sh: the
+# @vercel/static-build step runs collectstatic into this directory, Vercel
+# serves the contents of staticfiles_build/ at the site root, and the
+# "/static/(.*)" route maps requests straight onto the collected files.
+# (The public pages reference no static assets at all — this exists so the
+# Django admin's CSS/JS render correctly in production.)
+STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
